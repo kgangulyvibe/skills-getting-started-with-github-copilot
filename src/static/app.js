@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   async function fetchActivities() {
     try {
       // Add cache: "no-store" to force a fresh request
-      const response = await fetch(`/activities?_=${Date.now()}`, { cache: "no-store" });
+      const response = await fetch(`/activities`, { cache: "no-store" });
       const activities = await response.json();
 
       // Clear loading message
