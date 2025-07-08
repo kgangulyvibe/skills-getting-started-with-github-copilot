@@ -101,7 +101,7 @@ def get_activities(response: Response):
 
 
 @app.post("/activities/{activity_name}/signup")
-def signup_for_activity(activity_name: str, email: str = Query(...)):
+def signup_for_activity(activity_name: str, email: EmailStr = Query(...)):
     """Sign up a student for an activity"""
     # Validate activity exists
     if activity_name not in activities:
