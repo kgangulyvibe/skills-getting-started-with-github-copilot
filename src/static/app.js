@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to fetch activities from API
   async function fetchActivities() {
     try {
-      // Add a cache-busting query parameter to always get fresh data
-      const response = await fetch(`/activities?_=${Date.now()}`);
+      // Add cache: "no-store" to force a fresh request
+      const response = await fetch(`/activities?_=${Date.now()}`, { cache: "no-store" });
       const activities = await response.json();
 
       // Clear loading message
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Participants section (pretty bulleted list)
+        // Pretty participants section as a bulleted list
         let participantsHTML = "";
         if (details.participants.length > 0) {
           participantsHTML = `
