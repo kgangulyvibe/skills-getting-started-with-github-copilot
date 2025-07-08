@@ -25,30 +25,38 @@ document.addEventListener("DOMContentLoaded", () => {
         const spotsLeft = details.max_participants - details.participants.length;
 
         // Pretty participants section as a bulleted list
-        let participantsHTML = "";
+        const participantsSection = document.createElement("div");
+        participantsSection.className = "participants-section";
+
         if (details.participants.length > 0) {
-          participantsHTML = `
-            <div class="participants-section">
-              <strong>Participants:</strong>
-              <ul class="participants-list">
-                ${details.participants.map(email => `<li>${email}</li>`).join("")}
-              </ul>
-            </div>
-          `;
+          const participantsTitle = document.createElement("strong");
+          participantsTitle.textContent = "Participants:";
+          participantsSection.appendChild(participantsTitle);
+
+          const participantsList = document.createElement("ul");
+          participantsList.className = "participants-list";
+
+          details.participants.forEach(email => {
+            const listItem = document.createElement("li");
+            listItem.textContent = email;
+            participantsList.appendChild(listItem);
+          });
+
+          participantsSection.appendChild(participantsList);
         } else {
-          participantsHTML = `
-            <div class="participants-section no-participants">
-              <em>No participants yet. Be the first to sign up!</em>
-            </div>
-          `;
+          participantsSection.className += " no-participants";
+          const noParticipantsMessage = document.createElement("em");
+          noParticipantsMessage.textContent = "No participants yet. Be the first to sign up!";
+          participantsSection.appendChild(noParticipantsMessage);
         }
+
+        activityCard.appendChild(participantsSection);
 
         activityCard.innerHTML = `
           <h4>${name}</h4>
           <p>${details.description}</p>
           <p><strong>Schedule:</strong> ${details.schedule}</p>
           <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
-          ${participantsHTML}
         `;
 
         activitiesList.appendChild(activityCard);
