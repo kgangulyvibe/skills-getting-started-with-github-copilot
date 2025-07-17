@@ -24,13 +24,27 @@ document.addEventListener("DOMContentLoaded", () => {
         const spotsLeft = details.max_participants - details.participants.length;
 
         // Set basic info using innerHTML
-        activityCard.innerHTML = `
-          <h4>${name}</h4>
-          <p>${details.description}</p>
-          <p><strong>Schedule:</strong> ${details.schedule}</p>
-          <p><strong>Availability:</strong> ${spotsLeft} spots left</p>
-        `;
+        const activityTitle = document.createElement("h4");
+        activityTitle.textContent = name;
+        activityCard.appendChild(activityTitle);
 
+        const descriptionParagraph = document.createElement("p");
+        descriptionParagraph.textContent = details.description;
+        activityCard.appendChild(descriptionParagraph);
+
+        const scheduleParagraph = document.createElement("p");
+        const scheduleStrong = document.createElement("strong");
+        scheduleStrong.textContent = "Schedule:";
+        scheduleParagraph.appendChild(scheduleStrong);
+        scheduleParagraph.appendChild(document.createTextNode(` ${details.schedule}`));
+        activityCard.appendChild(scheduleParagraph);
+
+        const availabilityParagraph = document.createElement("p");
+        const availabilityStrong = document.createElement("strong");
+        availabilityStrong.textContent = "Availability:";
+        availabilityParagraph.appendChild(availabilityStrong);
+        availabilityParagraph.appendChild(document.createTextNode(` ${spotsLeft} spots left`));
+        activityCard.appendChild(availabilityParagraph);
         // Create participants section using DOM methods
         const participantsSection = document.createElement("div");
         participantsSection.className = "participants-section";
